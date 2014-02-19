@@ -1,3 +1,5 @@
+
+
 -- Created by jose llausas jose@zunware.com
 
 -- function SplitMeIntolines(str)
@@ -57,7 +59,9 @@ local comando01 = ('cd ' .. pathToFiles)
 local function getExtension(string)
 	local full = nil
 	local extension = nil
+
 	return string.match(string, "(.-)([^\\/]-%.?([^%.\\/]*))$")
+	
 	
 end
 
@@ -75,12 +79,24 @@ if mySimpleExecute(comando01) then
 		-- print(splitNames[i])
 
 		local fullPathName = pathToFiles .. splitNames[i]
-		print(fullPathName)
+		-- print(fullPathName)
+		-- print(newName)
 
-		local newName = pathToFiles .. i
-		print(newName)
+		local a, b, extension= getExtension(splitNames[i])
 
-		getExtension
+		local newName = "error"
+		if i < 10 then
+			newName = pathToFiles .. "0" .. i
+		else
+			newName = pathToFiles .. i
+		end
+
+		local completeNewName = newName .. "." .. extension
+		
+		-- print(fullPathName)
+		-- print(completeNewName)
+		os.rename(fullPathName, completeNewName)
+
 	end
 
 
