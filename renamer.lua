@@ -1,5 +1,4 @@
-
-
+#!/usr/bin/env lua
 -- Created by jose llausas jose@zunware.com
 
 -- function SplitMeIntolines(str)
@@ -48,6 +47,7 @@ end
 -- Starts here
 if #arg == 0 then
 	print('USAGE:\nrenamer.lua pathToFiles')
+	return 0
 end
 
 local pathToFiles = arg[1]
@@ -98,10 +98,6 @@ if mySimpleExecute(comando01) then
 		os.rename(fullPathName, completeNewName)
 
 	end
-
-
-
-
 else
 	print('Invalid Path')
 end
