@@ -3,8 +3,8 @@
 -- Created by jose llausas jose@zunware.com
 local utils 	= require("utils")
 local renamer 	= require("renamer")
-local imgTool = require("imgTool")
-local LBT = require("LookbookTool")
+local imgTool 	= require("imgTool")
+local LBT 		= require("LookbookTool")
 
 -- Program starts here
 if #arg == 0 then
