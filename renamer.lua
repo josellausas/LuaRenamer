@@ -1,89 +1,21 @@
-#!/usr/bin/env lua
 -- Created by jose llausas jose@zunware.com
+local utils = require("utils")
 
--- function SplitMeIntolines(str)
--- 	local t = {}
--- 	local function helper(line) 
--- 		table.insert(t, line) 
--- 		return "" 
--- 	end
--- 	helper((str:gsub("(.-)r?n", helper)))
--- 	return t
--- end
+local renamer = {}
 
-function splitThis(str)
-	t={}
-	for line in str:gmatch("[^\r\n]+") do  
-		table.insert(t, line)
-	end
-	return t
-end
+--[[ Renames files in path numerically : 01.x , 02.x , .. 
+	 Returs true if success. False if not success ]]
+function renamer.numericRename(pathToFiles, filenamesTable)
+	if not pathToFiles or not filenamesTable then return false end
 
-local function mySimpleExecute(command)
-	local success = nil
-	local signal  = nil
-	local number  = nil
+	-- Loops the table and renames each file with its number: 01.xxx
+	for i=1, #filenamesTable do
+		-- Buld a full qualified path to the file
+		local fullPathName = pathToFiles .. filenamesTable[i]
 
-	success, signal, number = os.execute(command)
+		local extension = utils.getFileExtension(filenamesTable[i])
 
-	if not success then print('Error running command') return false end
-
-	return true
-end
-
-local function myExecute(command)
-	local handle = io.popen(command)
-	local result = handle:read("*a")
-	handle:close()
-
-	if not result then 
-		print('Error with cmd ' .. command) 
-	end
-
-	return result
-
-end
-
--- Starts here
-if #arg == 0 then
-	print('USAGE:\nrenamer.lua pathToFiles')
-	return 0
-end
-
-local pathToFiles = arg[1]
-
-
-local comando01 = ('cd ' .. pathToFiles)
-
-
-local function getExtension(string)
-	local full = nil
-	local extension = nil
-
-	return string.match(string, "(.-)([^\\/]-%.?([^%.\\/]*))$")
-	
-	
-end
-
-if mySimpleExecute(comando01) then
-	print('Renaming files inside:')
-	print(pathToFiles .. '\n')
-
-	local filesNames = myExecute('ls ' .. pathToFiles)
-	
-	local splitNames = splitThis(filesNames)
-
-	print(#splitNames)
-
-	for i=1, #splitNames do
-		-- print(splitNames[i])
-
-		local fullPathName = pathToFiles .. splitNames[i]
-		-- print(fullPathName)
-		-- print(newName)
-
-		local a, b, extension= getExtension(splitNames[i])
-
+		-- Puts the 0 in the filenames < 10
 		local newName = "error"
 		if i < 10 then
 			newName = pathToFiles .. "0" .. i
@@ -93,12 +25,17 @@ if mySimpleExecute(comando01) then
 
 		local completeNewName = newName .. "." .. extension
 		
-		-- print(fullPathName)
-		-- print(completeNewName)
 		os.rename(fullPathName, completeNewName)
-
 	end
-else
-	print('Invalid Path')
+
+	return true
+
 end
+
+return renamer
+
+
+
+
+
 
