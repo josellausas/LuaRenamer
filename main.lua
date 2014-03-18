@@ -43,12 +43,11 @@ if utils.justRunCmd(cdToPathCMD) then
 
 	-- Make Folders
 	utils.justRunCmd('mkdir ' .. pathToFiles .. 'images')
-	utils.justRunCmd('mkdir '.. pathToFiles .. 'images_thumbnails')
-	utils.justRunCmd('mkdir '.. pathToFiles .. 'images_large')
+	utils.justRunCmd('mkdir ' .. pathToFiles .. 'images_thumbnails')
+	utils.justRunCmd('mkdir ' .. pathToFiles .. 'images_large')
 
 	for i=1, #filenamesTable do
 		print(filenamesTable[i])
-		-- imgTool.resize(pathToFiles .. filenamesTable[i], 800, 600)
 
 		local imageName = pathToFiles .. 'images/' .. filenamesTable[i]
 		local thumbName = pathToFiles .. 'images_thumbnails/' .. filenamesTable[i]
