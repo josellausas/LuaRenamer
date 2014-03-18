@@ -49,10 +49,12 @@ if utils.justRunCmd(cdToPathCMD) then
 	for i=1, #filenamesTable do
 		print(filenamesTable[i])
 
+		-- Create the 3 file paths for the image
 		local imageName = pathToFiles .. 'images/' .. filenamesTable[i]
 		local thumbName = pathToFiles .. 'images_thumbnails/' .. filenamesTable[i]
 		local largeName = pathToFiles .. 'images_large/' .. filenamesTable[i]
 
+		-- Create the 3 versions of the image
 		LBT.resize(pathToFiles .. filenamesTable[i], 138, 207, thumbName)
 		LBT.resize(pathToFiles .. filenamesTable[i], 333, 500, imageName)
 		LBT.resize(pathToFiles .. filenamesTable[i], 640, 960, largeName)
